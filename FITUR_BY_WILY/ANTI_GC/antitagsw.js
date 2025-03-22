@@ -1,5 +1,5 @@
 
-import { serialize } from '../../lib/serialize.js';
+import serialize from '../../lib/serialize.js';
 
 const processedMessages = new Set();
 const warnings = {};
