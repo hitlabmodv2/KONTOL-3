@@ -12,8 +12,7 @@ export async function handleAntiTagStatus(Wilykun, m, store) {
     try {
         console.log('Anti Tag Status Check Started');
         console.log('Message Type:', m.mtype);
-        console.log('Message Content:', JSON.stringify(m.message, null, 2));
-
+        
         if (process.env.ENABLE_ANTI_TAG_STATUS !== 'true') {
             console.log('Anti Tag Status Feature is disabled');
             return;
@@ -30,7 +29,6 @@ export async function handleAntiTagStatus(Wilykun, m, store) {
             return;
         }
         
-        console.log('Processing new message:', messageId);
         processedMessages.add(messageId);
 
         // Enhanced status tag detection
@@ -43,23 +41,17 @@ export async function handleAntiTagStatus(Wilykun, m, store) {
             (m.message && m.message.extendedTextMessage && m.message.extendedTextMessage.contextInfo && m.message.extendedTextMessage.contextInfo.mentionedJid)
         );
 
-        console.log('Is tagging in status:', isTaggingInStatus);
-
         if (!isTaggingInStatus) {
             console.log('No status tag detected, skipping');
             return;
         }
 
-        console.log('Getting group metadata');
         const groupMetadata = await Wilykun.groupMetadata(m.key.remoteJid);
         const admins = groupMetadata.participants.filter(p => p.admin).map(p => p.id);
         const isSenderAdmin = admins.includes(m.key.participant);
         const botIsAdmin = admins.includes(Wilykun.user.id);
 
-        console.log('Sender is admin:', isSenderAdmin);
-        console.log('Bot is admin:', botIsAdmin);
-
-        // Delete the message
+        // Immediately try to delete the message
         try {
             await Wilykun.sendMessage(m.key.remoteJid, { delete: m.key });
             console.log('Successfully deleted tagged status message');
@@ -68,20 +60,23 @@ export async function handleAntiTagStatus(Wilykun, m, store) {
         }
 
         if (isSenderAdmin) {
-            console.log('Sending warning to admin');
-            const warningMsg = `Grup ini terdeteksi ditandai dalam Status WhatsApp\n\n@${m.key.participant.split("@")[0]}, mohon untuk tidak menandai grup dalam status WhatsApp\n\nHal tersebut tidak diperbolehkan dalam grup ini.`;
+            // For admins, send a warning
             await Wilykun.sendMessage(m.key.remoteJid, { 
-                text: warningMsg,
+                text: `⚠️ *PERINGATAN ADMIN*\n\n@${m.key.participant.split("@")[0]}, mohon untuk tidak menandai grup dalam status WhatsApp\n\nHal tersebut tidak diperbolehkan dalam grup ini.`,
                 mentions: [m.key.participant]
             });
         } else if (botIsAdmin) {
-            console.log('Removing non-admin member');
-            await Wilykun.groupParticipantsUpdate(m.key.remoteJid, [m.key.participant], "remove");
-            const kickMsg = `@${m.key.participant.split("@")[0]} telah dikeluarkan dari grup karena menandai grup dalam status WhatsApp.`;
-            await Wilykun.sendMessage(m.key.remoteJid, {
-                text: kickMsg,
-                mentions: [m.key.participant]
-            });
+            // For non-admins, immediately kick
+            try {
+                await Wilykun.groupParticipantsUpdate(m.key.remoteJid, [m.key.participant], "remove");
+                await Wilykun.sendMessage(m.key.remoteJid, {
+                    text: `🚫 @${m.key.participant.split("@")[0]} telah dikeluarkan dari grup karena menandai grup dalam status WhatsApp.`,
+                    mentions: [m.key.participant]
+                });
+                console.log(`Successfully kicked user ${m.key.participant}`);
+            } catch (error) {
+                console.error('Failed to kick user:', error);
+            }
         }
 
     } catch (error) {
