@@ -59,12 +59,7 @@ export async function handleAntiTagStatus(Wilykun, m, store) {
         while (deleteRetries < maxDeleteRetries) {
             try {
                 await Wilykun.sendMessage(m.key.remoteJid, { 
-                    delete: {
-                        remoteJid: m.key.remoteJid,
-                        fromMe: false,
-                        id: m.key.id,
-                        participant: m.key.participant
-                    }
+                    delete: m.key
                 });
                 console.log('Successfully deleted tagged status message');
                 break;
