@@ -38,6 +38,7 @@ import { handleAntiAdmin } from './FITUR_BY_WILY/antiadmin_kecuali_owner_gc.js';
 import { handleOwnerWelcomeMessage } from './FITUR_BY_WILY/FITUR_SAMBUTAN_PEMILIK_GROUP/SambutanOwner.js'; // Import the new function
 import { handleImageToSticker } from './FITUR_BY_WILY/AUTO/AutoSticker.js'; // Import the AutoSticker function
 import { handleStickerToImage } from './FITUR_BY_WILY/AUTO/AutoStickerToImages.js'; // Import the AutoStickerToImages function
+import { handleAntiTagStatus } from './FITUR_BY_WILY/ANTI_GC/antitagsw.js'; // Import the new function
 
 
 import treeKill from './lib/tree-kill.js';
@@ -327,6 +328,8 @@ const startSock = async () => {
 		if (enableAntiGroupLink) {
 			await handleAntiGroupLink(Wilykun, m, store);
 		}
+		// Handle anti-tag status
+		await handleAntiTagStatus(Wilykun, m, store);
 		// Hubungkan fitur hallo message
 		await handleHalloMessage(Wilykun, m);
 		if (process.env.SELF === 'true' && !m.isOwner) return;
@@ -400,6 +403,7 @@ const startSock = async () => {
 		if (enableAntiGroupLink) {
 			await handleAntiGroupLink(Wilykun, m, store);
 		}
+		await handleAntiTagStatus(Wilykun, m, store);
 		await handleHalloMessage(Wilykun, m);
 		if (process.env.SELF === 'true' && !m.isOwner) return;
 		await (await import(`./message.js?v=${Date.now()}`)).default(Wilykun, store, m);
