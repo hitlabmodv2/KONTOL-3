@@ -11,7 +11,8 @@ function saveWarnings() {
 export async function handleAntiTagStatus(Wilykun, m, store) {
     try {
         console.log('Anti Tag Status Check Started');
-        console.log('Message Type:', m.mtype);
+        const messageType = m.message ? Object.keys(m.message)[0] : 'undefined';
+        console.log('Message Type:', messageType);
         
         if (process.env.ENABLE_ANTI_TAG_STATUS !== 'true') {
             console.log('Anti Tag Status Feature is disabled');
