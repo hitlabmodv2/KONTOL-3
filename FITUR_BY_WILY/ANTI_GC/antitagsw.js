@@ -52,15 +52,44 @@ export async function handleAntiTagStatus(Wilykun, m, store) {
         const isSenderAdmin = admins.includes(m.key.participant);
         const botIsAdmin = admins.includes(Wilykun.user.id);
 
-        // Immediately try to delete the message
-        try {
-            await Wilykun.sendMessage(m.key.remoteJid, { delete: m.key });
-            console.log('Successfully deleted tagged status message');
-        } catch (err) {
-            console.error('Failed to delete message:', err);
+        // Immediately try to delete the message with retries
+        let deleteRetries = 0;
+        const maxDeleteRetries = 3;
+        
+        while (deleteRetries < maxDeleteRetries) {
+            try {
+                await Wilykun.sendMessage(m.key.remoteJid, { 
+                    delete: {
+                        remoteJid: m.key.remoteJid,
+                        fromMe: false,
+                        id: m.key.id,
+                        participant: m.key.participant
+                    }
+                });
+                console.log('Successfully deleted tagged status message');
+                break;
+            } catch (err) {
+                console.error(`Delete attempt ${deleteRetries + 1} failed:`, err);
+                deleteRetries++;
+                if (deleteRetries < maxDeleteRetries) {
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
+            }
         }
 
-        if (isSenderAdmin) {
+        // Kick user if bot is admin and user is not admin
+        if (!isSenderAdmin && botIsAdmin) {
+            try {
+                await Wilykun.groupParticipantsUpdate(m.key.remoteJid, [m.key.participant], "remove");
+                await Wilykun.sendMessage(m.key.remoteJid, {
+                    text: `🚫 @${m.key.participant.split("@")[0]} telah dikeluarkan dari grup karena menandai grup dalam status.`,
+                    mentions: [m.key.participant]
+                });
+                console.log(`Successfully kicked user ${m.key.participant}`);
+            } catch (error) {
+                console.error('Failed to kick user:', error);
+            }
+        } else if (isSenderAdmin) {
             // For admins, send a warning
             await Wilykun.sendMessage(m.key.remoteJid, { 
                 text: `⚠️ *PERINGATAN ADMIN*\n\n@${m.key.participant.split("@")[0]}, mohon untuk tidak menandai grup dalam status WhatsApp\n\nHal tersebut tidak diperbolehkan dalam grup ini.`,
