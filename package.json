@@ -19,7 +19,7 @@
   "dependencies": {
     "@hapi/boom": "^10.0.1",
     "axios": "latest",
-    "baileys": "latest",
+    "baileys": "npm:@kangfarrel/felzar-baileys@latest",
     "cfonts": "latest",
     "chalk": "latest",
     "dotenv": "latest",

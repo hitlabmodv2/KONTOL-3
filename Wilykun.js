@@ -1,6 +1,7 @@
 import 'dotenv/config';
 
-import makeWASocket, {
+import {
+	default as makeWASocket,
 	delay,
 	useMultiFileAuthState,
 	fetchLatestBaileysVersion,
