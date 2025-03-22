@@ -84,3 +84,4 @@ Jika kamu ingin menjalankan bot dengan uptime 24/7 tanpa perlu mengkhawatirkan s
   100% { color: blue; }
 }
 </style>
+# KONTOL-3
