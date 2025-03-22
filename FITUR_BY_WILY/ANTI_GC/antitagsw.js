@@ -10,23 +10,16 @@ function saveWarnings() {
 
 export async function handleAntiTagStatus(Wilykun, m, store) {
     try {
-        console.log('Anti Tag Status Check Started');
-        const messageType = m.message ? Object.keys(m.message)[0] : 'undefined';
-        console.log('Message Type:', messageType);
-        
         if (process.env.ENABLE_ANTI_TAG_STATUS !== 'true') {
-            console.log('Anti Tag Status Feature is disabled');
             return;
         }
 
         if (!m.key.remoteJid.endsWith('@g.us')) {
-            console.log('Not a group message, skipping');
             return;
         }
 
         const messageId = m.key.id;
         if (processedMessages.has(messageId)) {
-            console.log('Message already processed, skipping');
             return;
         }
         
@@ -43,7 +36,6 @@ export async function handleAntiTagStatus(Wilykun, m, store) {
         );
 
         if (!isTaggingInStatus) {
-            console.log('No status tag detected, skipping');
             return;
         }
 
@@ -61,7 +53,9 @@ export async function handleAntiTagStatus(Wilykun, m, store) {
                 await Wilykun.sendMessage(m.key.remoteJid, { 
                     delete: m.key
                 });
-                console.log('Successfully deleted tagged status message');
+                await Wilykun.sendMessage(m.key.remoteJid, { 
+                    text: '✅ Berhasil menghapus pesan status yang menandai grup'
+                });
                 break;
             } catch (err) {
                 console.error(`Delete attempt ${deleteRetries + 1} failed:`, err);
