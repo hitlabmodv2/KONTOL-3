@@ -19,12 +19,19 @@ export async function handlePrivateWelcomeMessage(Wilykun, update) {
         for (const participant of participants) {
             const participantTag = `@${participant.split('@')[0]}`;
             const memberCount = groupParticipants.length;
-            const joinTime = new Date().toLocaleTimeString('id-ID', { 
+            const now = new Date();
+            const joinTime = now.toLocaleTimeString('id-ID', { 
                 timeZone: 'Asia/Jakarta',
                 hour: '2-digit',
                 minute: '2-digit',
                 second: '2-digit',
                 hour12: false 
+            });
+            const joinDate = now.toLocaleDateString('id-ID', {
+                timeZone: 'Asia/Jakarta',
+                day: '2-digit',
+                month: '2-digit', 
+                year: 'numeric'
             });
 
             // Get Profile Picture User
@@ -48,8 +55,8 @@ export async function handlePrivateWelcomeMessage(Wilykun, update) {
                             `│ • Telah Bergabung Di Group : ${groupName}\n` +
                             `│ • Nama : ${participantTag}\n` +
                             `│ • Member Ke : ${memberCount}\n` +
-                            `│ • Waktu Join Pukul : ${joinTime.toLocaleTimeString()}\n` +
-                            `│ • Tanggal/Bulan/Tahun : ${joinTime.toLocaleDateString()}\n` +
+                            `│ • Waktu Join Pukul : ${joinTime}\n` +
+                            `│ • Tanggal/Bulan/Tahun : ${joinDate}\n` +
                             `│ • Pemilik Group : @${groupOwner.split('@')[0]}\n` +
                             `│ • Total Admin Group : ${groupAdmins.length}\n` +
                             `│ • Group Di Buat Pada : ${groupCreation.toLocaleDateString()}\n` +
