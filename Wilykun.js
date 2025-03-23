@@ -90,11 +90,20 @@ async function getPairingNumber() {
 	});
 }
 
+import { validateIpAndPhone } from './utils/ipValidator.js';
+
 async function validatePhoneNumber(phoneNumber) {
-	// Logika validasi nomor telepon bisa ditambahkan di sini
-	// Misalnya, memeriksa apakah nomor hanya berisi angka dan panjangnya sesuai
-	const isValid = /^\d+$/.test(phoneNumber) && phoneNumber.length >= 10 && phoneNumber.length <= 15;
-	return isValid;
+	const isFormatValid = /^\d+$/.test(phoneNumber) && phoneNumber.length >= 10 && phoneNumber.length <= 15;
+	if (!isFormatValid) return false;
+
+	const { authorized, ip } = await validateIpAndPhone(phoneNumber);
+	if (!authorized) {
+		console.log(chalk.red('❌ IP atau nomor tidak terdaftar'));
+		console.log(chalk.yellow(`📍 IP Address: ${ip}`));
+		console.log(chalk.yellow(`📱 Nomor: ${phoneNumber}`));
+		return false;
+	}
+	return true;
 }
 
 const browserType = process.env.BROWSER_TYPE || 'ubuntu';
