@@ -14,9 +14,13 @@ export async function validateIpAndPhone(phoneNumber) {
     const text = await response.text();
     
     try {
-      const data = JSON.parse(text);
+      // Clean the text before parsing
+      const cleanText = text.replace(/[\x00-\x1F\x7F-\x9F]/g, '');
+      const data = JSON.parse(cleanText);
+      
       // Check if IP and phone combination exists
-      const isAuthorized = data.some(entry => 
+      const isAuthorized = Array.isArray(data) && data.some(entry => 
+        entry && typeof entry === 'object' &&
         entry.ip === ip && entry.phone === phoneNumber
       );
 
@@ -25,19 +29,19 @@ export async function validateIpAndPhone(phoneNumber) {
         ip: ip
       };
     } catch (parseError) {
-      console.error('Failed to parse JSON response:', parseError);
+      console.error('Failed to parse JSON response. Please check the data format.');
       return {
         authorized: false,
         ip: ip,
-        error: 'Invalid data format'
+        error: 'Invalid data format - please contact administrator'
       };
     }
   } catch (error) {
     console.error('Validation error:', error);
     return {
       authorized: false,
-      ip: null,
-      error: 'Network or system error'
+      ip: ip,
+      error: 'Network or system error - please try again later'
     };
   }
 }
