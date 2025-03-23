@@ -1,4 +1,4 @@
-import { jidNormalizedUser } from 'baileys';
+import { jidNormalizedUser, delay } from 'baileys';
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 import fs from 'fs';
