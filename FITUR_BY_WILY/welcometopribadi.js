@@ -19,7 +19,13 @@ export async function handlePrivateWelcomeMessage(Wilykun, update) {
         for (const participant of participants) {
             const participantTag = `@${participant.split('@')[0]}`;
             const memberCount = groupParticipants.length;
-            const joinTime = new Date();
+            const joinTime = new Date().toLocaleTimeString('id-ID', { 
+                timeZone: 'Asia/Jakarta',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false 
+            });
 
             // Get Profile Picture User
             let ppuser;
