@@ -18,7 +18,13 @@ export async function handlePrivateGoodbyeMessage(Wilykun, update) {
         for (const participant of participants) {
             const participantTag = `@${participant.split('@')[0]}`;
             const memberCount = groupParticipants.length;
-            const leaveTime = new Date().toLocaleTimeString('id-ID', { timeZone: 'Asia/Makassar' });
+            const leaveTime = new Date().toLocaleTimeString('id-ID', { 
+    timeZone: 'Asia/Jakarta',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false 
+});
 
             // Get Profile Picture User
             let ppuser;
