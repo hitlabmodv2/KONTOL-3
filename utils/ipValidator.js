@@ -11,22 +11,33 @@ export async function validateIpAndPhone(phoneNumber) {
     
     // Fetch authorized IPs and numbers from GitHub
     const response = await fetch('https://raw.githubusercontent.com/hitlabmodv2/IP_SC_BOT/refs/heads/main/IP_NUMBER.js');
-    const data = await response.json();
+    const text = await response.text();
     
-    // Check if IP and phone combination exists
-    const isAuthorized = data.some(entry => 
-      entry.ip === ip && entry.phone === phoneNumber
-    );
+    try {
+      const data = JSON.parse(text);
+      // Check if IP and phone combination exists
+      const isAuthorized = data.some(entry => 
+        entry.ip === ip && entry.phone === phoneNumber
+      );
 
-    return {
-      authorized: isAuthorized,
-      ip: ip
-    };
+      return {
+        authorized: isAuthorized,
+        ip: ip
+      };
+    } catch (parseError) {
+      console.error('Failed to parse JSON response:', parseError);
+      return {
+        authorized: false,
+        ip: ip,
+        error: 'Invalid data format'
+      };
+    }
   } catch (error) {
     console.error('Validation error:', error);
     return {
       authorized: false,
-      ip: null
+      ip: null,
+      error: 'Network or system error'
     };
   }
 }
