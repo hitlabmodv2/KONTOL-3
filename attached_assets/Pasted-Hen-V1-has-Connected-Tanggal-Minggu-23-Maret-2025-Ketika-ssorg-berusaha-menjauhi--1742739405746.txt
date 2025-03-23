@@ -1,0 +1,82 @@
+Hen V1 has Connected... 🤖
+─
+Tanggal: Minggu, 23 Maret 2025 📅
+─
+Ketika ssorg berusaha menjauhi hidupmu, biarkanlah. Kepergian dia hanya membuka pintu bagi ssorg yg lebih baik tuk masuk 💬
+─
+VERSI: Emot_Lengkap 😎
+─
+AUTO_READ_STORY_TYPE: false 😊
+Bot akan selalu memberikan reaksi emoji saat melihat status.
+─
+Total Fitur Saat ini: { 22 🛠️ }
+Jumlah Fitur Aktif: { 14 ✅ } 
+Jumlah Fitur Tidak Aktif: { 8 ❌ } 
+─
+Fitur Aktif (14 ✅):
+- ⌨️ Auto Typing: Aktif
+- ⚠️ Handle Errors: Aktif
+- 👋 Goodbye Group: Aktif
+- 👋 Welcome Group: Aktif
+- 👑 Owner Welcome Message: Aktif
+- 📨 Private Goodbye Message: Aktif
+- 📩 Private Welcome Message: Aktif
+- 📶 Auto Online: Aktif
+- 📺 Anti Channel Link: Aktif
+- 🔒 Self Mode: Aktif
+- 🔗 Anti Group Link: Aktif
+- 🔗 Anti WaMe Link: Aktif
+- 🖼️ Auto Sticker Mode: Aktif
+- 🧹 Auto Clear Session: Aktif
+─
+Fitur Tidak Aktif (8 ❌):
+- 🎥 Auto Recording: Tidak Aktif
+- 🎨 Auto Sticker To Image: Tidak Aktif
+- 👢 Auto Kick: Tidak Aktif
+- 💾 Write Store: Tidak Aktif
+- 📤 Telegram Backup: Tidak Aktif
+- 📰 Anti Forwarded Newsletter: Tidak Aktif
+- 🔄 Auto Restart: Tidak Aktif
+- 🖌️ Auto Image HD: Tidak Aktif
+─
+Script Auto Read Story, Reaksi Emot Random, saat ini sedang dipantau oleh Owner untuk menjaga hal yang kita tidak diinginkan. 👁️
+
+
+
+rubah jadi gini
+
+
+
+Hen V1 has Connected... 🤖
+─
+Total Fitur Saat ini: { 22 🛠️ }
+Jumlah Fitur Aktif: { 14 ✅ } 
+Jumlah Fitur Tidak Aktif: { 8 ❌ } 
+─
+Fitur Aktif (14 ✅):
+- ⌨️ Auto Typing: Aktif
+- ⚠️ Handle Errors: Aktif
+- 👋 Goodbye Group: Aktif
+- 👋 Welcome Group: Aktif
+- 👑 Owner Welcome Message: Aktif
+- 📨 Private Goodbye Message: Aktif
+- 📩 Private Welcome Message: Aktif
+- 📶 Auto Online: Aktif
+- 📺 Anti Channel Link: Aktif
+- 🔒 Self Mode: Aktif
+- 🔗 Anti Group Link: Aktif
+- 🔗 Anti WaMe Link: Aktif
+- 🖼️ Auto Sticker Mode: Aktif
+- 🧹 Auto Clear Session: Aktif
+─
+Fitur Tidak Aktif (8 ❌):
+- 🎥 Auto Recording: Tidak Aktif
+- 🎨 Auto Sticker To Image: Tidak Aktif
+- 👢 Auto Kick: Tidak Aktif
+- 💾 Write Store: Tidak Aktif
+- 📤 Telegram Backup: Tidak Aktif
+- 📰 Anti Forwarded Newsletter: Tidak Aktif
+- 🔄 Auto Restart: Tidak Aktif
+- 🖌️ Auto Image HD: Tidak Aktif
+─
+Script Auto Read Story, Reaksi Emot Random, saat ini sedang dipantau oleh Owner untuk menjaga hal yang kita tidak diinginkan. 👁️

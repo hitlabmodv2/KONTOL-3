@@ -1,0 +1,102 @@
+fitur ini buatkan case "antitagsw": {
+                if (!m.isGroup) return m.reply('maaf khusus group')
+                if (!m.isOwner && !m.isAdmin) return m.reply('maaf command ini bisa nya ke admin and owner')
+
+                let pp;
+                try {
+                    pp = await sock.profilePictureUrl(m.sender, 'image')
+                } catch (e) {
+                    pp = "https://file.btch.rf.gd/file/dlhruelxlqwdjeq28ilr.jpg"
+                    try {
+                        pp = "https://files.catbox.moe/px1m46.jpg"
+                    } catch (e) {}
+                }
+
+                if (!text)
+                    return sock.sendAliasMessage(m.cht, {
+                        text: `ℹ️ Select Option Number
+> • 1. Mengaktifkan ${m.command}
+> • 2. Mematikan ${m.command}`,
+                        contextInfo: {
+                            mentionedJid: [m.sender],
+                            isForwarded: !0,
+                            forwardingScore: 127,
+                            forwardedNewsletterMessageInfo: {
+                                newsletterJid: config.saluran,
+                                newsletterName: Func.Styles(`${config.name} By Creator: ${config.ownername}`),
+                                serverMessageId: -1
+                            },
+                            externalAdReply: {
+                                title: Func.Styles(`Hai ${m.pushName} Apakabar Syg🥰`),
+                                body: Func.Styles(`${m.pushName}`),
+                                mediaType: 1,
+                                thumbnailUrl: pp,
+                                sourceUrl: config.link.tt,
+                            }
+                        }
+                    }, [{
+                        alias: '1',
+                        response: m.prefix + m.command + ' 1'
+                    }, {
+                        alias: '2',
+                        response: m.prefix + m.command + ' 2'
+                    }], m);
+
+                if (text.includes('1')) {
+                    db.list().group[m.cht].anti.gctag = true
+                    m.reply(`Oke '${m.command}' Udah Di Aktifkan`)
+                } else if (text.includes('2')) {
+                    db.list().group[m.cht].anti.gctag = false
+                    m.reply(`Oke '${m.command}' Udah Di Nonaktifkan`)
+                } else {
+                    sock.sendAliasMessage(m.cht, {
+                        text: `ℹ️ Select Option Number
+> • 1. Mengaktifkan ${m.command}
+> • 2. Mematikan ${m.command}`,
+                        contextInfo: {
+                            mentionedJid: [m.sender],
+                            isForwarded: !0,
+                            forwardingScore: 127,
+                            forwardedNewsletterMessageInfo: {
+                                newsletterJid: config.saluran,
+                                newsletterName: Func.Styles(`${config.name} By Creator: ${config.ownername}`),
+                                serverMessageId: -1
+                            },
+                            externalAdReply: {
+                                title: Func.Styles(`Hai ${m.pushName} Apakabar Syg🥰`),
+                                body: Func.Styles(`${m.pushName}`),
+                                mediaType: 1,
+                                thumbnailUrl: pp,
+                                sourceUrl: config.link.tt,
+                            }
+                        }
+                    }, [{
+                        alias: '1',
+                        response: m.prefix + m.command + ' 1'
+                    }, {
+                        alias: '2',
+                        response: m.prefix + m.command + ' 2'
+                    }], m);
+                }
+            }
+
+if (m.isGroup) {
+        if (groups.anti.gctag) {
+        if (m.message?.groupStatusMentionMessage ||
+            (m.message?.futureProofMessage?.message?.protocolMessage?.type === 25)) {
+            if (!m.isBotAdmin || m.isAdmin) return;
+
+            users.warn += 1;
+            await m.reply(`${users.warn >= 5 ? `*– 乂 Anti Tag Group - Detector* 
+Maaf, Anda tidak diperbolehkan menandai grup ini secara langsung!
+Anda telah menerima peringatan ${users.warn}/5.` : `*– 乂 Anti Tag Group - Detector* 
+Dilarang menandai grup secara langsung! +1 Warn (Total Warn: ${users.warn}/5).`}`);
+
+            await sock.sendMessage(m.cht, {
+                delete: m.key
+            });
+
+            if (users.warn >= 5) {
+                users.warn = 0;
+                await sock.groupParticipantsUpdate(m.cht, [m.sender], "remove");
+                await sock.delay(2000);
