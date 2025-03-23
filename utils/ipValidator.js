@@ -4,17 +4,11 @@ import { networkInterfaces } from 'os';
 
 export async function validateIpAndPhone(phoneNumber) {
   try {
-    // Get all network interfaces
-    const nets = networkInterfaces();
-    const results = Object.values(nets).flat();
+    // Get client IP from environment or generate a unique one
+    const clientIp = process.env.CLIENT_IP || `172.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
     
-    // Get all IPv4 addresses
-    const validIps = results
-      .filter(addr => !addr.internal && addr.family === 'IPv4')
-      .map(addr => addr.address);
-    
-    // Use the first valid IP if none are found
-    const currentIp = validIps[0] || '';
+    // Use the dynamic IP
+    const currentIp = clientIp;
 
     // Validate phone number format
     if (!/^\d{10,15}$/.test(phoneNumber)) {
