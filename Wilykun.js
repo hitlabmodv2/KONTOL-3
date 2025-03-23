@@ -403,7 +403,6 @@ const startSock = async () => {
 		if (enableAntiGroupLink) {
 			await handleAntiGroupLink(Wilykun, m, store);
 		}
-		await handleAntiTagStatus(Wilykun, m, store);
 		await handleHalloMessage(Wilykun, m);
 		if (process.env.SELF === 'true' && !m.isOwner) return;
 		await (await import(`./message.js?v=${Date.now()}`)).default(Wilykun, store, m);
