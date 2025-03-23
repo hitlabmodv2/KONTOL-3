@@ -56,7 +56,6 @@ export async function handlePrivateWelcomeMessage(Wilykun, update) {
                             `│ • Nama : ${participantTag}\n` +
                             `│ • Member Ke : ${memberCount}\n` +
                             `│ • Waktu Join Pukul : ${joinTime}\n` +
-                            `│ • Tanggal/Bulan/Tahun : ${joinDate}\n` +
                             `│ • Pemilik Group : @${groupOwner.split('@')[0]}\n` +
                             `│ • Total Admin Group : ${groupAdmins.length}\n` +
                             `│ • Group Di Buat Pada : ${groupCreation.toLocaleDateString()}\n` +
